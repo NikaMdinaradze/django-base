@@ -1,10 +1,10 @@
 SETTINGS_DEV=core.settings.dev
 
-makemigrations:
-	@echo "Making Migration files"
-	python manage.py makemigrations --settings=$(SETTINGS_DEV)
-
 migrations:
+	@echo "Making Migration files"
+	docker-compose run --rm api python src/manage.py makemigrations --settings=$(SETTINGS_DEV)
+
+migrate:
 	@echo "Running Migrations Docker"
 	docker-compose run --rm api python src/manage.py migrate
 
