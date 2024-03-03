@@ -1,0 +1,7 @@
+Django==4.2
+djangorestframework==3.14.0
+drf-spectacular==0.26.4
+gunicorn==21.2.0
+psycopg2-binary==2.9.7
+requests==2.31.0
+djangorestframework-simplejwt==5.3.1

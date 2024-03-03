@@ -1,0 +1,24 @@
+FROM python:3.11
+
+ENV PYTHONUNBUFFERED 1
+
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+
+COPY requirements.txt /opt/app/
+
+RUN pip install --upgrade pip && pip install -r requirements.txt --no-cache-dir
+
+COPY . /opt/app/
+RUN mkdir -p /opt/app/static
+
+RUN useradd -ms /bin/bash api
+RUN chown -R api:api /opt/app
+
+ADD scripts/docker-entrypoint-dev.sh /home/api/docker-entrypoint-dev.sh
+ADD scripts/check_service.py /home/api/check_service.py
+
+RUN chmod +x /home/api/docker-entrypoint-dev.sh
+USER api
+
+ENTRYPOINT ["/home/api/docker-entrypoint-dev.sh"]
